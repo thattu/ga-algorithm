@@ -1,9 +1,11 @@
 package vn.hcm.ptit.master.ga.entities;
 
+import vn.hcm.ptit.master.ga.commons.FitnessFunction;
+import vn.hcm.ptit.master.ga.commons.RepresentationFunction;
+
 public class Individual {
 
 	private Chromosome chromosome;
-	private float value;
 	
 	public Individual() {
 	}
@@ -28,11 +30,11 @@ public class Individual {
 		this.chromosome = chromosome;
 	}
 
-	public float getValue() {
-		return value;
+	public double getValue() {
+		return FitnessFunction.getInstance().calculate(RepresentationFunction.getInstance().convert(this.chromosome));
 	}
-
-	public void setValue(float value) {
-		this.value = value;
+	
+	public double getSelectionProbability(double totalFitness) {
+		return getValue() / totalFitness;
 	}
 }

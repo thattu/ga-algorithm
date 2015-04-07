@@ -2,7 +2,7 @@ package vn.hcm.ptit.master.ga.entities;
 
 public class Gene {
 	private boolean geneValue;
-	
+
 	public Gene() {
 		this.geneValue = true;
 	}
@@ -18,7 +18,11 @@ public class Gene {
 	public void setGeneValue(boolean geneValue) {
 		this.geneValue = geneValue;
 	}
-	
+
+	public void mutate() {
+		this.geneValue = !this.geneValue;
+	}
+
 	@Override
 	public String toString() {
 		return geneValue ? "1" : "0";

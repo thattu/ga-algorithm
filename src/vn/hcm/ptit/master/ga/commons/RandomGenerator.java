@@ -46,7 +46,25 @@ public class RandomGenerator {
 		return population;
 	}
 	
+	public int generateRandomLocation(int length) {
+		return (new Random()).nextInt(length);
+	}
+	
+	public Chromosome generateCrossoverMask() {
+		Chromosome chromosome = new Chromosome();
+		List<Gene> allGenes = new ArrayList<Gene>();
+		int chromosomeLength = chromosome.getLength();
+		for(int i = 0; i < chromosomeLength; i++) {
+			if(i <= generateRandomLocation(chromosomeLength)) 
+				allGenes.add(new Gene(true));
+			else
+				allGenes.add(new Gene(false));
+		}
+		chromosome.setChromosome(allGenes);
+		return chromosome;
+	}
+	
 	/*public static void main(String[] args) {
-		System.out.println(getInstance().generatePopulation().toString());
+		System.out.println(getInstance().generateCrossoverMask().toString());
 	}*/
 }

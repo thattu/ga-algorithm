@@ -29,6 +29,27 @@ public class Population {
 		this.allIndividuals = allIndividuals;
 	}
 
+	public void addNewIndividual(Individual newIndividual) {
+		this.allIndividuals.add(newIndividual);
+	}
+	
+	public double getTotalFitness() {
+		double sum = 0;
+		for(Individual individual : allIndividuals) {
+			sum += individual.getValue();
+		}
+		return sum;
+	}
+	
+	public double getCumulativeProbability(int indexOfChromosome) {
+		double sumProbability = 0;
+		double totalFitness = getTotalFitness();
+		for(int i = 0; i <= indexOfChromosome; i++) {
+			sumProbability += allIndividuals.get(i).getSelectionProbability(totalFitness);
+		}
+		return sumProbability;
+	}
+	
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		for(int i = 0; i < popularSize; i++) {
