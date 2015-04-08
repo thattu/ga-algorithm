@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chromosome {
-
+	public static final int DEFAULT_LENGTH = 22;
 	private int length;
 	private List<Gene> chromosome;
 	
 	public Chromosome() {
-		this.length = 22;
+		this.length = DEFAULT_LENGTH;
 		this.chromosome = new ArrayList<Gene>();
 	}
 	

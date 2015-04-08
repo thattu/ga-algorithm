@@ -30,9 +30,25 @@ public class RandomGenerator {
 		return chromosome;
 	}
 	
+	private Chromosome generateChromosome(int chromosomeLength) {
+		Chromosome chromosome = new Chromosome(chromosomeLength);
+		List<Gene> allGenes = new ArrayList<Gene>();
+		for(int i = 0; i < chromosome.getLength(); i++) {
+			allGenes.add(new Gene((new Random()).nextBoolean()));
+		}
+		chromosome.setChromosome(allGenes);
+		return chromosome;
+	}
+	
 	public Individual generateIndividual() {
 		Individual individual = new Individual();
 		individual.setChromosome(generateChromosome());
+		return individual;
+	}
+	
+	public Individual generateIndividual(int chromosomeLength) {
+		Individual individual = new Individual();
+		individual.setChromosome(generateChromosome(chromosomeLength));
 		return individual;
 	}
 	
@@ -46,11 +62,21 @@ public class RandomGenerator {
 		return population;
 	}
 	
+	public Population generatePopulation(int populationSize) {
+		Population population = new Population(populationSize);
+		List<Individual> allIndividuals = new ArrayList<Individual>();
+		for(int i = 0; i < population.getPopularSize(); i++) {
+			allIndividuals.add(generateIndividual());
+		}
+		population.setAllIndividuals(allIndividuals);
+		return population;
+	}
+	
 	public int generateRandomLocation(int length) {
 		return (new Random()).nextInt(length);
 	}
 	
-	public double generateRandomNumber() {
+	public double generateRandomRatio() {
 		return (new Random()).nextDouble();
 	}
 	
@@ -58,8 +84,9 @@ public class RandomGenerator {
 		Chromosome chromosome = new Chromosome();
 		List<Gene> allGenes = new ArrayList<Gene>();
 		int chromosomeLength = chromosome.getLength();
+		int location = generateRandomLocation(chromosomeLength);
 		for(int i = 0; i < chromosomeLength; i++) {
-			if(i <= generateRandomLocation(chromosomeLength)) 
+			if(i <= location) 
 				allGenes.add(new Gene(true));
 			else
 				allGenes.add(new Gene(false));
@@ -68,7 +95,9 @@ public class RandomGenerator {
 		return chromosome;
 	}
 	
-	/*public static void main(String[] args) {
-		System.out.println(getInstance().generateCrossoverMask().toString());
+	/*public static void main(String args[]) {
+		Population p = getInstance().generatePopulation(50);
+		System.out.println(p.toString());
+		
 	}*/
 }

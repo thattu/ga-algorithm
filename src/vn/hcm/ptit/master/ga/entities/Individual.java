@@ -3,15 +3,16 @@ package vn.hcm.ptit.master.ga.entities;
 import java.util.Random;
 
 import vn.hcm.ptit.master.ga.commons.FitnessFunction;
+import vn.hcm.ptit.master.ga.commons.RandomGenerator;
 import vn.hcm.ptit.master.ga.commons.RepresentationFunction;
 
 public class Individual {
 
 	private Chromosome chromosome;
-	private double selectionRatio;
+	private double ratio;
 	
 	public Individual() {
-		this.selectionRatio = (new Random()).nextDouble();
+		this.ratio = (new Random()).nextDouble();
 	}
 
 	public Individual(Chromosome chromosome) {
@@ -38,11 +39,15 @@ public class Individual {
 		return FitnessFunction.getInstance().calculate(RepresentationFunction.getInstance().convert(this.chromosome));
 	}
 	
-	public double getSelectionProbability(double totalFitness) {
-		return getValue() / totalFitness;
+	public double getRatio() {
+		return this.ratio;
 	}
 	
-	public double getSelectionRatio() {
-		return this.selectionRatio;
+	public void regenerateSelectionRatio() {
+		this.ratio = RandomGenerator.getInstance().generateRandomRatio();
+	}
+	
+	public String toString() {
+		return this.chromosome.toString();
 	}
 }
