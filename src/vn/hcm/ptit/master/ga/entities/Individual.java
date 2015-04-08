@@ -1,13 +1,17 @@
 package vn.hcm.ptit.master.ga.entities;
 
+import java.util.Random;
+
 import vn.hcm.ptit.master.ga.commons.FitnessFunction;
 import vn.hcm.ptit.master.ga.commons.RepresentationFunction;
 
 public class Individual {
 
 	private Chromosome chromosome;
+	private double selectionRatio;
 	
 	public Individual() {
+		this.selectionRatio = (new Random()).nextDouble();
 	}
 
 	public Individual(Chromosome chromosome) {
@@ -36,5 +40,9 @@ public class Individual {
 	
 	public double getSelectionProbability(double totalFitness) {
 		return getValue() / totalFitness;
+	}
+	
+	public double getSelectionRatio() {
+		return this.selectionRatio;
 	}
 }

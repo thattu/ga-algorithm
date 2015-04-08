@@ -1,13 +1,13 @@
 package vn.hcm.ptit.master.ga.commons;
 
-import java.util.Random;
-
 import vn.hcm.ptit.master.ga.entities.Chromosome;
 import vn.hcm.ptit.master.ga.entities.Gene;
 import vn.hcm.ptit.master.ga.entities.Individual;
 import vn.hcm.ptit.master.ga.entities.Population;
 
 public class GAUtils {
+	public static final double P_C = 0.25;
+	public static final double P_M = 0.01;
 	private static GAUtils gaUtils = new GAUtils();
 	
 	private GAUtils() {
@@ -45,11 +45,28 @@ public class GAUtils {
 		chromosome.getChromosome().get(index).mutate();
 	}
 	
-	public static void select(Population population) {
-		double r = (new Random()).nextDouble();
+	public static int getIndividualLocation(Population population) {
+		double r = RandomGenerator.getInstance().generateRandomNumber();
+		double totalFitness = population.getTotalFitness();
+		for(int i = 1; i < population.getPopularSize(); i++) {
+			double curSelectionProbability = population.getAllIndividuals().get(i).getSelectionProbability(totalFitness);
+			double prevSelectionProbability = population.getAllIndividuals().get(i - 1).getSelectionProbability(totalFitness);
+			if(r >= prevSelectionProbability && r < curSelectionProbability) {
+				return i - 1;
+			} else if (r >=  curSelectionProbability) {
+				return i;
+			}
+		}
+		return 0;
 	}
 	
-	public static void main(String[] args) {
-		System.out.println((new Random()).nextDouble());
+	public static void reLocatePopulation(Population population) {
+		Population newPopulation = new Population();
+		for(int i = 0; i < newPopulation.getPopularSize(); i++) {
+			
+		}
 	}
+	/*public static void main(String[] args) {
+		System.out.println((new Random()).nextDouble());
+	}*/
 }

@@ -50,6 +50,10 @@ public class RandomGenerator {
 		return (new Random()).nextInt(length);
 	}
 	
+	public double generateRandomNumber() {
+		return (new Random()).nextDouble();
+	}
+	
 	public Chromosome generateCrossoverMask() {
 		Chromosome chromosome = new Chromosome();
 		List<Gene> allGenes = new ArrayList<Gene>();
